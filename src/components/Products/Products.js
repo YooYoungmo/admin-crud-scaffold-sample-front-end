@@ -5,7 +5,7 @@ import styles from './Products.css';
 import { PAGE_SIZE } from '../../constants';
 
 
-function Products({ list: dataSource, total, page: current }) {
+function Products({ list: dataSource, loading, total, page: current }) {
   function deleteHandler(id) {
     console.warn(`TODO: ${id}`);
   }
@@ -47,6 +47,7 @@ function Products({ list: dataSource, total, page: current }) {
         <Table
           columns={columns}
           dataSource={dataSource}
+          loading={loading}
           rowKey={record => record.id}
           pagination={false}
         />
@@ -64,6 +65,7 @@ function Products({ list: dataSource, total, page: current }) {
 function mapStateToProps(state) {
   const { list, total, page } = state.products;
   return {
+    loading: state.loading.models.products,
     list,
     total,
     page,
