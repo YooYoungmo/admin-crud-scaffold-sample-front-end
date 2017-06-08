@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'dva';
 import styles from './Products.css';
 import ProductComponent from '../components/Products/Products';
+import MainLayout from '../components/MainLayout/MainLayout';
 
-function Products() {
+function Products({ location }) {
   return (
-    <div className={styles.normal}>
-      <ProductComponent />
-    </div>
+    <MainLayout location={location}>
+      <div className={styles.normal}>
+        <ProductComponent />
+      </div>
+    </MainLayout>
   );
 }
 
