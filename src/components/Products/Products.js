@@ -5,9 +5,12 @@ import styles from './Products.css';
 import { PAGE_SIZE } from '../../constants';
 
 
-function Products({ list: dataSource, loading, total, page: current }) {
+function Products({ dispatch, list: dataSource, loading, total, page: current }) {
   function deleteHandler(id) {
-    console.warn(`TODO: ${id}`);
+    dispatch({
+      type: 'products/remove',
+      payload: id,
+    });
   }
 
   const columns = [
@@ -30,10 +33,10 @@ function Products({ list: dataSource, loading, total, page: current }) {
     {
       title: 'Operation',
       key: 'operation',
-      render: (text, { id }) => (
+      render: (text, { Id }) => (
         <span className={styles.operation}>
           <a href="">Edit</a>
-          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
+          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, Id)}>
             <a href="">Delete</a>
           </Popconfirm>
         </span>
