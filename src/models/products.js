@@ -29,6 +29,11 @@ export default {
       const page = yield select(state => state.products.page);
       yield put({ type: 'fetch', payload: { page } });
     },
+    *put({ payload: { id, values } }, { call, put, select }) {
+      yield call(productService.put, id, values);
+      const page = yield select(state => state.products.page);
+      yield put({ type: 'fetch', payload: { page } });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {

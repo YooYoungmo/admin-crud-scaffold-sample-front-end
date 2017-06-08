@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Table, Pagination, Popconfirm } from 'antd';
 import styles from './Products.css';
+import ProductModal from './ProductModal';
 import { PAGE_SIZE } from '../../constants';
 
 
@@ -10,6 +11,13 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
     dispatch({
       type: 'products/remove',
       payload: id,
+    });
+  }
+
+  function editHandler(id, values) {
+    dispatch({
+      type: 'products/put',
+      payload: { id, values },
     });
   }
 
@@ -33,10 +41,12 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
     {
       title: 'Operation',
       key: 'operation',
-      render: (text, { Id }) => (
+      render: (text, record) => (
         <span className={styles.operation}>
-          <a href="">Edit</a>
-          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, Id)}>
+          <ProductModal record={record} onOk={editHandler.bind(null, record.Id)}>
+            <a>Edit</a>
+          </ProductModal>
+          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.Id)}>
             <a href="">Delete</a>
           </Popconfirm>
         </span>
@@ -51,7 +61,7 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
           columns={columns}
           dataSource={dataSource}
           loading={loading}
-          rowKey={record => record.id}
+          rowKey={record => record.Id}
           pagination={false}
         />
         <Pagination

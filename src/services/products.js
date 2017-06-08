@@ -12,3 +12,10 @@ export function remove(id) {
     method: 'DELETE',
   });
 }
+
+export function put(id, values) {
+  return request(`/api/products/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(values),
+  });
+}
