@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table, Pagination, Popconfirm } from 'antd';
+import { Table, Pagination, Popconfirm, Button } from 'antd';
 import styles from './Products.css';
 import ProductModal from './ProductModal';
 import { PAGE_SIZE } from '../../constants';
@@ -18,6 +18,13 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
     dispatch({
       type: 'products/put',
       payload: { id, values },
+    });
+  }
+
+  function createHandler(values) {
+    dispatch({
+      type: 'products/create',
+      payload: values,
     });
   }
 
@@ -57,6 +64,11 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
   return (
     <div className={styles.normal}>
       <div>
+        <div className={styles.create}>
+          <ProductModal record={{}} onOk={createHandler}>
+            <Button type="primary">Create Product</Button>
+          </ProductModal>
+        </div>
         <Table
           columns={columns}
           dataSource={dataSource}

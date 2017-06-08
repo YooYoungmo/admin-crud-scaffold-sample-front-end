@@ -19,3 +19,10 @@ export function put(id, values) {
     body: JSON.stringify(values),
   });
 }
+
+export function create(values) {
+  return request('/api/products', {
+    method: 'POST',
+    body: JSON.stringify(values),
+  });
+}
