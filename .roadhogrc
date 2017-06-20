@@ -19,6 +19,12 @@
       "target": "http://localhost:8080/v1/",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
+    },
+
+    "/account" : {
+      "target": "https://staging.p2shop.cn/account/api/Account",
+      "changeOrigin": true,
+      "pathRewrite": { "^/account" : "" }
     }
   }
 }

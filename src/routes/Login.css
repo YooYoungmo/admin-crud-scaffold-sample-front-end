@@ -1,0 +1,10 @@
+.normal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -160px 0 0 -160px;
+  width: 320px;
+  height: 320px;
+  padding: 36px;
+  border: 1px solid #d9d9d9;
+}

@@ -1,6 +1,3 @@
-/**
- * Created by yooyoung-mo on 2017. 6. 8..
- */
 import React, { Component } from 'react';
 import { Modal, Form, Input } from 'antd';
 import styles from './ProductModal.css';
