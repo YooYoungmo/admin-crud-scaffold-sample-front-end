@@ -1,37 +1,24 @@
+import { routerRedux } from 'dva/router';
 import * as accountService from '../services/account';
+import { setLoginIn } from '../utils';
 
 export default {
   namespace: 'account',
   state: {
   },
-  // reducers: {
-  //   save(state, { payload: { data: list, total, page } }) {
-  //     return { ...state, list, total, page };
-  //   },
-  // },
   effects: {
-    *login({ payload: { page = 1 } }, { call, put }) {
-      console.log('account model');
-      const { data, headers } = yield call(accountService.query, { page });
-      console.log(data);
-      // yield put({
-      //   type: 'save',
-      //   payload: {
-      //     data,
-      //     total: 10,
-      //     page: parseInt(page, 10),
-      //   },
-      // });
+    *login({ payload }, { call, put, select }) {
+      const { data, headers } = yield call(accountService.query, payload);
+      if (data && data.success) {
+        yield setLoginIn(data.result.userName, data.result.token);
+
+        const nextLocation = yield select(state => state.routing.locationBeforeTransitions);
+        yield put(routerRedux.push({
+          pathname: nextLocation.state.nextPathname,
+          search: nextLocation.state.nextSearch,
+        }));
+      }
     },
   },
-  // subscriptions: {
-  //   setup({ dispatch, history }) {
-  //     return history.listen(({ pathname, query }) => {
-  //       if (pathname === '/login') {
-  //         dispatch({ type: 'fetch', payload: query });
-  //       }
-  //     });
-  //   },
-  // },
 };
 

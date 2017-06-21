@@ -9,7 +9,7 @@ function Login({ dispatch, loading = false }) {
   const loginProps = {
     loading,
     onOk(data) {
-      dispatch({ type: 'account/login', payload: data });
+      dispatch({ type: 'account/login', payload:  data });
     },
   };
   return (

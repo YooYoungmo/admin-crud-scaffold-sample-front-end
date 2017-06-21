@@ -3,7 +3,7 @@ import { Router, Route } from 'dva/router';
 import IndexPage from './routes/IndexPage';
 import Products from './routes/Products';
 import Login from './routes/Login';
-import { isLogin } from './utils'
+import { isLogin } from './utils';
 
 function RouterConfig({ history }) {
   function redirectToLogin(nextState, replace) {

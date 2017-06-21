@@ -4,22 +4,15 @@
 import request from '../utils/request';
 
 export function query(values) {
+  let data = {
+    tenantName: 'Default',
+    usernameOrEmailAddress: values.username,
+    password: values.password,
+  };
 
-  // let data = {
-  //   tenantName: 'Default',
-  //   usernameOrEmailAddress: 'admin',
-  //   password: '123qwe',
-  // };
-
-  let data = '{' +
-    '"tenantName": "Default",' +
-    '"usernameOrEmailAddress": "admin",' +
-    // '"password": "123qwe"' +
-    '"password": "123qwew"' +
-    '}';
   return request('/account', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: data,
+    body: JSON.stringify(data),
   });
 }
