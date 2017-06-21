@@ -10,7 +10,12 @@ const setLoginIn = (userName, accessToken) => {
   sessionStorage.setItem('accessToken', accessToken);
 };
 
+const getAccessToken = () => {
+  return sessionStorage.getItem('accessToken');
+};
+
 export {
   isLogin,
   setLoginIn,
+  getAccessToken,
 };

@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import fetch from 'dva/fetch';
+import { getAccessToken } from '../utils';
 
 
 function parseJSON(response) {
@@ -33,12 +34,17 @@ function handleError(error) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-
-  // return fetch(url, options)
-  //   .then(checkStatus)
-  //   .then(handelData)
-  //   .catch(handleError)
+  // if (options && options.auth) {
+  //   if(options.headers) {
+  //     options.headers = new Headers();
+  //   }
+  //   let headers = options.headers || {};
+  //   headers.add()
   //
+  //   options.headers.append('Content-Type', 'application/json');
+  //   options.headers.append('Authorization', 'Bearer ' + getAccessToken());
+  // }
+
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
