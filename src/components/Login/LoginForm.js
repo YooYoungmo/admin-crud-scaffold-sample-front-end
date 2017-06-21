@@ -4,11 +4,17 @@ import styles from './LoginForm.css';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      const { onOk } = this.props;
       if (!err) {
-        console.log('Received values of form: ', values);
+        onOk(values);
       }
     });
   }

@@ -1,15 +1,29 @@
 import React from 'react';
+import { Spin } from 'antd';
+import PropTypes from 'prop-types';
 import { connect } from 'dva';
-import LoginForm from '../components/Login/LoginForm';
-import styles from './Login.css';
+import LoginForm from './LoginForm';
+import styles from './LoginForm.less';
 
-
-function Login({ location }) {
+function Login({ dispatch, loading = false }) {
+  const loginProps = {
+    loading,
+    onOk(data) {
+      dispatch({ type: 'account/login', payload: data });
+    },
+  };
   return (
-    <div className={styles.normal}>
-      <LoginForm />
-    </div>
+    <div className={styles.spin}><Spin tip='加载用户信息...' spinning={loading} size='large'><LoginForm {...loginProps} /></Spin></div>
   );
 }
 
-export default connect()(Login);
+Login.propTypes = {
+  dispatch: PropTypes.func,
+  loading: PropTypes.bool,
+}
+
+function mapStateToProps({ loading }) {
+  return { loading: loading.models.account };
+}
+
+export default connect(mapStateToProps)(Login);

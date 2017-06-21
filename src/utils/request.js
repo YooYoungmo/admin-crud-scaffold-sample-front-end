@@ -1,4 +1,6 @@
+import { message } from 'antd';
 import fetch from 'dva/fetch';
+
 
 function parseJSON(response) {
   return response.json();
@@ -14,6 +16,15 @@ function checkStatus(response) {
   throw error;
 }
 
+function handleError(error) {
+  const url = error.response.url;
+  if (url.indexOf('/account') !== -1) {
+    message.error('密码不正确 or 用户不存在');
+  }
+
+  return { success: false };
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -22,9 +33,15 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+
+  // return fetch(url, options)
+  //   .then(checkStatus)
+  //   .then(handelData)
+  //   .catch(handleError)
+  //
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .catch(handleError);
 }
