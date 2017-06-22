@@ -34,16 +34,15 @@ function handleError(error) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  // if (options && options.auth) {
-  //   if(options.headers) {
-  //     options.headers = new Headers();
-  //   }
-  //   let headers = options.headers || {};
-  //   headers.add()
-  //
-  //   options.headers.append('Content-Type', 'application/json');
-  //   options.headers.append('Authorization', 'Bearer ' + getAccessToken());
-  // }
+  if(url !== '/account' && options.method) {
+    if(options.method !== 'GET') {
+      if(options.headers === undefined) {
+        options.headers = new Headers();
+      }
+      options.headers.append('Content-Type', 'application/json');
+      options.headers.append('Authorization', 'Bearer ' + getAccessToken());
+    }
+  }
 
   return fetch(url, options)
     .then(checkStatus)

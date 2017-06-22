@@ -1,7 +1,5 @@
 import React from 'react';
-import { Router, Route } from 'dva/router';
-import IndexPage from './routes/IndexPage';
-import Products from './routes/Products';
+import { Router, Route, IndexRoute } from 'dva/router';
 import Login from './routes/Login';
 import { isLogin } from './utils';
 
@@ -23,9 +21,11 @@ function RouterConfig({ history }) {
 
   return (
     <Router history={history}>
-      <Route path="/" component={IndexPage} onEnter={redirectToLogin} />
+      <Route path="/" onEnter={redirectToLogin}>
+        <IndexRoute component={require("./routes/IndexPage")} />
+        <Route path="products" component={require("./routes/Products")} />
+      </Route>
       <Route path="/login" component={Login} onEnter={redirectToIndex} />
-      <Route path="/products" component={Products} />
     </Router>
   );
 }
