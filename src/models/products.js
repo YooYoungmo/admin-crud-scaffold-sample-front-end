@@ -18,8 +18,8 @@ export default {
       yield put({
         type: 'save',
         payload: {
-          data,
-          total: 10,
+          data: data.result.items,
+          total: parseInt(data.result.totalCount, 10),
           page: parseInt(page, 10),
         },
       });

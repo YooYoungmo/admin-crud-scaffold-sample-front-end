@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
+import { routerRedux } from 'dva/router';
 import styles from './Products.css';
 import ProductModal from './ProductModal';
 import { PAGE_SIZE } from '../../constants';
@@ -26,6 +27,13 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
       type: 'products/create',
       payload: values,
     });
+  }
+
+  function pageChangeHandler(page) {
+    dispatch(routerRedux.push({
+      pathname: '/products',
+      query: { page },
+    }));
   }
 
   const columns = [
@@ -81,6 +89,7 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
           total={total}
           current={current}
           pageSize={PAGE_SIZE}
+          onChange={pageChangeHandler}
         />
       </div>
     </div>
