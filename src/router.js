@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute } from 'dva/router';
 import Login from './routes/Login';
 import { isLogin } from './utils';
 
-function RouterConfig({ history }) {
+function RouterConfig({ history, dispatch }) {
   function redirectToLogin(nextState, replace) {
     if (!isLogin()) {
       replace({
@@ -24,6 +24,8 @@ function RouterConfig({ history }) {
       <Route path="/" onEnter={redirectToLogin}>
         <IndexRoute component={require("./routes/IndexPage")} />
         <Route path="products" component={require("./routes/Products")} />
+        <Route path="products/edit" component={require("./routes/ProductDetail")} />
+        <Route path="products/create" component={require("./routes/ProductDetail")} />
       </Route>
       <Route path="/login" component={Login} onEnter={redirectToIndex} />
     </Router>

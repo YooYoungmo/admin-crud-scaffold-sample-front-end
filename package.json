@@ -4,16 +4,17 @@
     "start": "roadhog server",
     "build": "roadhog build",
     "lint": "eslint --ext .js src test",
-    "precommit": "npm run lint"
   },
   "engines": {
     "install-node": "6.9.2"
   },
   "dependencies": {
     "antd": "^2.10.4",
+    "axios": "^0.16.2",
     "babel-runtime": "^6.9.2",
     "dva": "^1.2.1",
     "dva-loading": "^0.2.1",
+    "fetch-sync": "^2.0.0",
     "prop-types": "^15.5.10",
     "rc-queue-anim": "^1.0.5",
     "react": "^15.4.0",

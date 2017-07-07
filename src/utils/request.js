@@ -18,11 +18,12 @@ function checkStatus(response) {
 }
 
 function handleError(error) {
-  const url = error.response.url;
-  if (url.indexOf('/account') !== -1) {
-    message.error('密码不正确 or 用户不存在');
+  if (error.response !== undefined) {
+    const url = error.response.url;
+    if (url.indexOf('/account') !== -1) {
+      message.error('密码不正确 or 用户不存在');
+    }
   }
-
   return { success: false };
 }
 

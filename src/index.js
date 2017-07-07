@@ -8,6 +8,7 @@ const app = dva();
 app.use(createLoading());
 
 app.model(require("./models/products"));
+app.model(require("./models/productDetail"));
 app.model(require("./models/account"));
 
 // 2. Plugins

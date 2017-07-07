@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './Products.css';
-import ProductModal from './ProductModal';
 import { PAGE_SIZE } from '../../constants';
 
 
@@ -15,18 +14,17 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
     });
   }
 
-  function editHandler(id, values) {
-    dispatch({
-      type: 'products/put',
-      payload: { id, values },
-    });
+  function editHandler(id) {
+    dispatch(routerRedux.push({
+      pathname: '/products/edit',
+      query: { id },
+    }));
   }
 
-  function createHandler(values) {
-    dispatch({
-      type: 'products/create',
-      payload: values,
-    });
+  function createHandler() {
+    dispatch(routerRedux.push({
+      pathname: '/products/create',
+    }));
   }
 
   function pageChangeHandler(page) {
@@ -58,9 +56,7 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <ProductModal record={record} onOk={editHandler.bind(null, record.Id)}>
-            <a>Edit</a>
-          </ProductModal>
+          <a onClick={editHandler.bind(null, record.Id)}>Edit</a>
           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.Id)}>
             <a href="">Delete</a>
           </Popconfirm>
@@ -73,9 +69,7 @@ function Products({ dispatch, list: dataSource, loading, total, page: current })
     <div className={styles.normal}>
       <div>
         <div className={styles.create}>
-          <ProductModal record={{}} onOk={createHandler}>
-            <Button type="primary">Create Product</Button>
-          </ProductModal>
+          <Button type="primary" onClick={createHandler}>Create Product</Button>
         </div>
         <Table
           columns={columns}

@@ -1,5 +1,20 @@
 import request from '../utils/request';
 import { PAGE_SIZE } from '../constants';
+import axios from 'axios';
+
+function convertJSON(values) {
+  return JSON.stringify({
+    id: parseInt(values.id),
+    name: values.name,
+    desc: values.desc,
+    startAt: values.startAt,
+    endAt: values.endAt,
+    actionType: values.actionType,
+    discountAmount: parseInt(values.discountAmount),
+    enable: JSON.parse(values.enable),
+    createdAt: values.createdAt,
+  });
+}
 
 export function fetch({ page = 1 }) {
   let skipCount = 0;
@@ -8,6 +23,12 @@ export function fetch({ page = 1 }) {
   }
 
   return request('/api/products?maxResultCount=' + PAGE_SIZE + '&skipCount=' + skipCount, {
+    method: 'GET',
+  });
+}
+
+export function fetchById(id) {
+  return request(`/api/products/${id}`, {
     method: 'GET',
   });
 }
